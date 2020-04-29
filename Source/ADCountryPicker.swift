@@ -51,7 +51,9 @@ open class ADCountryPicker: UITableViewController {
             } else {
                 country = ADCountry(name: displayName!, code: countryCode, dialCode: "")
             }
-            unsortedCountries.append(country)
+            if getFlag(countryCode: country.code) != nil {
+                unsortedCountries.append(country)
+            }
         }
         
         return unsortedCountries
