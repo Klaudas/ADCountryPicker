@@ -49,7 +49,7 @@ open class ADCountryPicker: UITableViewController {
             if countryData.count > 0, let dialCode = countryData[0]["dial_code"] {
                 country = ADCountry(name: displayName!, code: countryCode, dialCode: dialCode)
             } else {
-                country = ADCountry(name: displayName!, code: countryCode)
+                country = ADCountry(name: displayName!, code: countryCode, dialCode: "")
             }
             unsortedCountries.append(country)
         }
@@ -103,7 +103,7 @@ open class ADCountryPicker: UITableViewController {
         if countryData.count > 0, let dialCode = countryData[0]["dial_code"] {
             country = ADCountry(name: displayName!, code: countryCode, dialCode: dialCode)
         } else {
-            country = ADCountry(name: displayName!, code: countryCode)
+            country = ADCountry(name: displayName!, code: countryCode, dialCode: "")
         }
         country.section = 0
         sections[0].addCountry(country)
@@ -149,13 +149,18 @@ open class ADCountryPicker: UITableViewController {
     open var closeButtonTintColor = UIColor.black
     
     /// The font of the country name list
-    open var font = UIFont(name: "Helvetica Neue", size: 15)
+    open var countryFont = UIFont(name: "Helvetica Neue", size: 15)
+    
+    open var phoneFont = UIFont(name: "Helvetica Neue", size: 15)
     
     /// The color of text
-    open var textColor = UIColor.black
+    open var countryTextColor = UIColor.black
+    
+    /// The color of text
+    open var phoneCodeTextColor = UIColor.black
     
     /// The height of the flags shown. Default to 40px
-    open var flagHeight = 40
+    open var flagHeight = 35
     
     /// Flag to indicate if the navigation bar should be hidden when search becomes active. Defaults to true
     open var hidesNavigationBarWhenPresentingSearch = true
@@ -318,11 +323,7 @@ extension ADCountryPicker {
     }
     
     open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if CGFloat(self.flagHeight) < CGFloat(tableView.rowHeight) {
-            return CGFloat(max(self.flagHeight, 25))
-        }
-        
-        return max(tableView.rowHeight, CGFloat(self.flagHeight))
+        return UITableView.automaticDimension
     }
     
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -334,13 +335,13 @@ extension ADCountryPicker {
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var tempCell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")
+//        var tempCell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")
         
-        if tempCell == nil {
-            tempCell = UITableViewCell(style: .default, reuseIdentifier: "UITableViewCell")
-        }
+//        if tempCell == nil {
+//            tempCell = UITableViewCell(style: .subtitle, reuseIdentifier: "UITableViewCell")
+//        }
         
-        let cell: UITableViewCell! = tempCell
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
         
         let country: ADCountry!
         if searchController.searchBar.text!.count > 0 {
@@ -350,13 +351,17 @@ extension ADCountryPicker {
             
         }
         
-        cell.textLabel?.font = self.font
-        cell.textLabel?.textColor = textColor
+        cell.textLabel?.font = countryFont
+        cell.textLabel?.textColor = countryTextColor
+        cell.textLabel?.text = country.name
+        
+        cell.detailTextLabel?.font = phoneFont
+        cell.detailTextLabel?.textColor = phoneCodeTextColor
         
         if showCallingCodes {
-            cell.textLabel?.text = country.name + " (" + country.dialCode! + ")"
+            cell.detailTextLabel?.text = country.dialCode
         } else {
-            cell.textLabel?.text = country.name
+            cell.detailTextLabel?.text = nil
         }
         
         let bundle = "assets.bundle/"
