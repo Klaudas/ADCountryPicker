@@ -244,6 +244,7 @@ open class ADCountryPicker: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.barTintColor = self.searchBarBackgroundColor
+        searchController.obscuresBackgroundDuringPresentation = false
         if #available(iOS 13.0, *) {
             searchController.automaticallyShowsCancelButton = true
         } else {
