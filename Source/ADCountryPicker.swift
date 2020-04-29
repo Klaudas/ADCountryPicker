@@ -27,6 +27,8 @@ public struct Section {
 
 open class ADCountryPicker: UITableViewController {
     
+    deinit { print("deinit", type(of: self)) }
+    
     private var customCountriesCode: [String]?
     
     fileprivate lazy var CallingCodes = { () -> [[String: String]] in
@@ -214,29 +216,43 @@ open class ADCountryPicker: UITableViewController {
                                            alpha: 1)
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let barItem = UIBarButtonItem()
+        barItem.title = ""
+        navigationController?.navigationBar.topItem?.backBarButtonItem = barItem
+    }
+    
+    var didScrollSearchBarInitially = false
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard !didScrollSearchBarInitially else { return }
+        let y = tableView.contentOffset.y - searchController.searchBar.frame.origin.y - 10
+        tableView.setContentOffset(.init(x: 0, y: y), animated: true)
+        didScrollSearchBarInitially = true
+    }
+    
     // MARK: Methods
     
     @objc private func dismissView() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationItem.hidesSearchBarWhenScrolling = true
-    }
-    
     fileprivate func createSearchBar() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = self.hidesNavigationBarWhenPresentingSearch
-        searchController.searchBar.searchBarStyle = .prominent
+        searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.barTintColor = self.searchBarBackgroundColor
-        searchController.searchBar.showsCancelButton = false
+        if #available(iOS 13.0, *) {
+            searchController.automaticallyShowsCancelButton = true
+        } else {
+            searchController.searchBar.showsCancelButton = false
+        }
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
+    @discardableResult
     fileprivate func filter(_ searchText: String) -> [ADCountry] {
         filteredList.removeAll()
         
@@ -455,11 +471,13 @@ extension ADCountryPicker {
 extension ADCountryPicker: UISearchResultsUpdating {
     
     public func updateSearchResults(for searchController: UISearchController) {
-        _ = filter(searchController.searchBar.text!)
+        filter(searchController.searchBar.text!)
         
-        if self.hidesNavigationBarWhenPresentingSearch == false {
-            searchController.searchBar.showsCancelButton = false
+        if #available(iOS 13.0, *) {
+        } else {
+            searchController.searchBar.showsCancelButton = searchController.isActive
         }
+        
         tableView.reloadData()
     }
 }
