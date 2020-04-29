@@ -127,6 +127,8 @@ open class ADCountryPicker: UITableViewController {
         return sections.first?.countries.first
     }
     
+    open var didSelectCallback: ((ADCountry) -> Void)?
+    
     /// Closure which returns country name and ISO code
     open var didSelectCountryClosure: ((String, String) -> ())?
     
@@ -460,6 +462,8 @@ extension ADCountryPicker {
         } else {
             country = sections[indexPath.section].countries[indexPath.row]
         }
+        country.flag = getFlag(countryCode: country.code)
+        didSelectCallback?(country)
         delegate?.countryPicker?(self, didSelectCountryWithName: country.name, code: country.code)
         delegate?.countryPicker(self, didSelectCountryWithName: country.name, code: country.code, dialCode: country.dialCode)
         didSelectCountryClosure?(country.name, country.code)

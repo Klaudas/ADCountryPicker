@@ -13,6 +13,7 @@ public class ADCountry: NSObject {
     public let code: String
     public var section: Int?
     public let dialCode: String
+    public var flag: UIImage?
     
     init(name: String, code: String, dialCode: String) {
         self.name = name
