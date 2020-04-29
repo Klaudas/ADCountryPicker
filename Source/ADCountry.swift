@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ADCountry: NSObject {
+public class ADCountry: NSObject {
     @objc let name: String
     let code: String
     var section: Int?

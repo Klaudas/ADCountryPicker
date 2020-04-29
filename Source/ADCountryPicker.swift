@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Section {
+public struct Section {
     var countries: [ADCountry] = []
     mutating func addCountry(_ country: ADCountry) {
         countries.append(country)
@@ -51,9 +51,8 @@ open class ADCountryPicker: UITableViewController {
             } else {
                 country = ADCountry(name: displayName!, code: countryCode, dialCode: "")
             }
-            if getFlag(countryCode: country.code) != nil {
-                unsortedCountries.append(country)
-            }
+            
+            unsortedCountries.append(country)
         }
         
         return unsortedCountries
@@ -120,6 +119,10 @@ open class ADCountryPicker: UITableViewController {
         as UILocalizedIndexedCollation
     open weak var delegate: ADCountryPickerDelegate?
     
+    public var firstCountry: ADCountry? {
+        return sections.first?.countries.first
+    }
+    
     /// Closure which returns country name and ISO code
     open var didSelectCountryClosure: ((String, String) -> ())?
     
@@ -166,6 +169,8 @@ open class ADCountryPicker: UITableViewController {
     
     /// Flag to indicate if the navigation bar should be hidden when search becomes active. Defaults to true
     open var hidesNavigationBarWhenPresentingSearch = true
+    
+    open var currentLocationTitle = "Current location"
     
     /// The background color of the searchbar. Defaults to lightGray
     open var searchBarBackgroundColor = UIColor.lightGray
@@ -336,13 +341,7 @@ extension ADCountryPicker {
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        var tempCell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")
-        
-//        if tempCell == nil {
-//            tempCell = UITableViewCell(style: .subtitle, reuseIdentifier: "UITableViewCell")
-//        }
-        
+                
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
         
         let country: ADCountry!
@@ -394,7 +393,7 @@ extension ADCountryPicker {
             }
             
             if section == 0 {
-                return "Current Location"
+                return currentLocationTitle
             }
             
             return self.collation.sectionTitles[section-1] as String
@@ -434,9 +433,9 @@ extension ADCountryPicker {
         tableView.deselectRow(at: indexPath, animated: true)
         let country: ADCountry!
         if searchController.searchBar.text!.count > 0 {
-            country = filteredList[(indexPath as NSIndexPath).row]
+            country = filteredList[indexPath.row]
         } else {
-            country = sections[(indexPath as NSIndexPath).section].countries[(indexPath as NSIndexPath).row]
+            country = sections[indexPath.section].countries[indexPath.row]
         }
         delegate?.countryPicker?(self, didSelectCountryWithName: country.name, code: country.code)
         delegate?.countryPicker(self, didSelectCountryWithName: country.name, code: country.code, dialCode: country.dialCode)
