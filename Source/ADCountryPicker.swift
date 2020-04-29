@@ -260,15 +260,15 @@ open class ADCountryPicker: UITableViewController {
     /// - Parameter countryCode: ISO code of country to get flag for
     /// - Returns: the UIImage for given country code if it exists
     public func getFlag(countryCode: String) -> UIImage? {
-        let countries = self.getCountry(countryCode)
-        
-        if countries.count == 1 {
-            let bundle = "assets.bundle/"
-            return UIImage(named: bundle + countries.first!.code.uppercased() + ".png",
-                           in: Bundle(for: ADCountryPicker.self), compatibleWith: nil)
-        }
-        else {
-            return nil
+        let bundle = "assets.bundle/"
+        if #available(iOS 13.0, *) {
+            return UIImage(named: bundle + countryCode.uppercased() + ".png",
+                           in: Bundle(for: ADCountryPicker.self),
+                           with: nil)
+        } else {
+            return UIImage(named: bundle + countryCode.uppercased() + ".png",
+                           in: Bundle(for: ADCountryPicker.self),
+                           compatibleWith: nil)
         }
     }
     

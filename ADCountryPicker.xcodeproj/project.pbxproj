@@ -118,6 +118,7 @@
 				TargetAttributes = {
 					05B2583B1C54EA80002F01FA = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = ZKT7WS283B;
 						LastSwiftMigration = 1010;
 					};
 				};
@@ -127,6 +128,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -299,10 +301,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZKT7WS283B;
 				INFOPLIST_FILE = ADCountryPicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.diman.ADCountryPicker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.diman.ADCountryPicker222;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -312,10 +315,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZKT7WS283B;
 				INFOPLIST_FILE = ADCountryPicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.diman.ADCountryPicker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.diman.ADCountryPicker222;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
