@@ -52,7 +52,9 @@ open class ADCountryPicker: UITableViewController {
                 country = ADCountry(name: displayName!, code: countryCode, dialCode: "")
             }
             
-            unsortedCountries.append(country)
+            if getFlag(countryCode: countryCode) != nil {
+                unsortedCountries.append(country)
+            }
         }
         
         return unsortedCountries
@@ -168,7 +170,7 @@ open class ADCountryPicker: UITableViewController {
     open var flagHeight = 35
     
     /// Flag to indicate if the navigation bar should be hidden when search becomes active. Defaults to true
-    open var hidesNavigationBarWhenPresentingSearch = true
+    open var hidesNavigationBarWhenPresentingSearch = false
     
     open var currentLocationTitle = "Current location"
     
@@ -227,7 +229,7 @@ open class ADCountryPicker: UITableViewController {
             searchController.searchBar.searchBarStyle = .prominent
             searchController.searchBar.barTintColor = self.searchBarBackgroundColor
             searchController.searchBar.showsCancelButton = false
-            tableView.tableHeaderView = searchController.searchBar
+            navigationItem.searchController = searchController
         }
     }
     
