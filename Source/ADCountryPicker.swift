@@ -151,6 +151,9 @@ open class ADCountryPicker: UITableViewController {
     /// The font of the country name list
     open var font = UIFont(name: "Helvetica Neue", size: 15)
     
+    /// The color of text
+    open var textColor = UIColor.black
+    
     /// The height of the flags shown. Default to 40px
     open var flagHeight = 40
     
@@ -348,6 +351,7 @@ extension ADCountryPicker {
         }
         
         cell.textLabel?.font = self.font
+        cell.textLabel?.textColor = textColor
         
         if showCallingCodes {
             cell.textLabel?.text = country.name + " (" + country.dialCode! + ")"
