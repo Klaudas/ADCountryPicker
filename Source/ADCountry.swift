@@ -9,10 +9,10 @@
 import UIKit
 
 public class ADCountry: NSObject {
-    @objc let name: String
-    let code: String
-    var section: Int?
-    let dialCode: String
+    @objc public let name: String
+    public let code: String
+    public var section: Int?
+    public let dialCode: String
     
     init(name: String, code: String, dialCode: String) {
         self.name = name
