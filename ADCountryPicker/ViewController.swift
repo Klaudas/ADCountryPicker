@@ -30,15 +30,15 @@ class ViewController: UIViewController {
 
         // or closure
         picker.didSelectCountryClosure = { name, code in
-            _ = picker.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
             print(code)
         }
         
         
 //        Use this below code to present the picker
         
-        let pickerNavigationController = UINavigationController(rootViewController: picker)
-        self.present(pickerNavigationController, animated: true, completion: nil)
+        navigationController?.pushViewController(picker, animated: true)
+        
 
         
 //        navigationController?.pushViewController(picker, animated: true)

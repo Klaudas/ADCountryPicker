@@ -220,17 +220,21 @@ open class ADCountryPicker: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
     fileprivate func createSearchBar() {
-        if self.tableView.tableHeaderView == nil {
-            searchController = UISearchController(searchResultsController: nil)
-            searchController.searchResultsUpdater = self
-            searchController.dimsBackgroundDuringPresentation = false
-            searchController.hidesNavigationBarDuringPresentation = self.hidesNavigationBarWhenPresentingSearch
-            searchController.searchBar.searchBarStyle = .prominent
-            searchController.searchBar.barTintColor = self.searchBarBackgroundColor
-            searchController.searchBar.showsCancelButton = false
-            navigationItem.searchController = searchController
-        }
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = self.hidesNavigationBarWhenPresentingSearch
+        searchController.searchBar.searchBarStyle = .prominent
+        searchController.searchBar.barTintColor = self.searchBarBackgroundColor
+        searchController.searchBar.showsCancelButton = false
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     fileprivate func filter(_ searchText: String) -> [ADCountry] {
