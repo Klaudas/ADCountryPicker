@@ -225,14 +225,10 @@ open class ADCountryPicker: UITableViewController {
         navigationController?.navigationBar.topItem?.backBarButtonItem = barItem
     }
     
-    var didScrollSearchBarInitially = false
-    
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard !didScrollSearchBarInitially else { return }
         let y = tableView.contentOffset.y - searchController.searchBar.frame.origin.y - 10
         tableView.setContentOffset(.init(x: 0, y: y), animated: true)
-        didScrollSearchBarInitially = true
     }
     
     // MARK: Methods
