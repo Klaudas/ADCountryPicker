@@ -13,11 +13,12 @@ public class ADCountry: NSObject {
     public let code: String
     public var section: Int?
     public let dialCode: String
-    public var flag: UIImage?
+    public let flag: UIImage
     
-    init(name: String, code: String, dialCode: String) {
+    init(name: String, code: String, dialCode: String, flag: UIImage) {
         self.name = name
         self.code = code
         self.dialCode = dialCode
+        self.flag = flag
     }
 }

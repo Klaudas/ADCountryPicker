@@ -49,7 +49,6 @@ open class ADCountryPicker: UITableViewController {
         }
         
         let countries: [ADCountry] = self.countries.map { country in
-            let country = ADCountry(name: country.name, code: country.code, dialCode: country.dialCode)
             country.section = collation.section(for: country, collationStringSelector: #selector(getter: ADCountry.name))
             return country
         }
@@ -361,18 +360,9 @@ extension ADCountryPicker {
         } else {
             cell.detailTextLabel?.text = nil
         }
-        
-        let bundle = "assets.bundle/"
-        
-        if self.showFlags == true {
-            let image = UIImage(named: bundle + country.code.uppercased() + ".png", in: Bundle(for: ADCountryPicker.self), compatibleWith: nil)
-            if (image != nil) {
-                cell.imageView?.image = image?.fitImage(size: CGSize(width:self.flagHeight, height:flagHeight))
-            }
-            else {
-                cell.imageView?.image = UIImage.init(color: .lightGray,
-                                                     size: CGSize(width:CGFloat(flagHeight), height:CGFloat(flagHeight)/CGFloat(1.5)))?.fitImage(size: CGSize(width:CGFloat(self.flagHeight), height:CGFloat(flagHeight)/CGFloat(1.5)))
-            }
+                
+        if showFlags {
+            cell.imageView?.image = country.flag.fitImage(size: CGSize(width: flagHeight, height: flagHeight))
         }
         
         return cell
@@ -434,7 +424,6 @@ extension ADCountryPicker {
         } else {
             country = sections[indexPath.section].countries[indexPath.row]
         }
-        country.flag = getFlag(countryCode: country.code)
         didSelectCallback?(country)
         delegate?.countryPicker?(self, didSelectCountryWithName: country.name, code: country.code)
         delegate?.countryPicker(self, didSelectCountryWithName: country.name, code: country.code, dialCode: country.dialCode)

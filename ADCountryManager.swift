@@ -6,7 +6,7 @@
 //  Copyright © 2020 Amila Diman. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class ADCountryManager {
     
@@ -18,9 +18,10 @@ final class ADCountryManager {
         return countriesCodes.compactMap { code -> ADCountry? in
             guard
                 let dialCode = prefixCodes[code],
-                let name = Locale.current.localizedString(forRegionCode: code)
+                let name = Locale.current.localizedString(forRegionCode: code),
+                let flag = UIImage.getFlag(named: code)
             else { return nil }
-            return ADCountry(name: name, code: code, dialCode: "+" + dialCode)
+            return ADCountry(name: name, code: code, dialCode: "+" + dialCode, flag: flag)
         }.sorted { $0.name < $1.name }
         
     }
@@ -29,10 +30,41 @@ final class ADCountryManager {
         let code = Locale.current.regionCode ?? ""
         guard
             let dialCode = prefixCodes[code],
-            let name = Locale.current.localizedString(forRegionCode: code)
+            let name = Locale.current.localizedString(forRegionCode: code),
+            let flag = UIImage.getFlag(named: code)
         else { return nil }
         
-        return ADCountry(name: name, code: code, dialCode: "+" + dialCode)
+        return ADCountry(name: name, code: code, dialCode: "+" + dialCode, flag: flag)
+    }
+    
+}
+
+extension Bundle {
+    
+    private static var bundleName: String { "assets" }
+    private static var bundleSuffix: String { "bundle" }
+    
+    private static var defaultBundleUrl: URL {
+        Bundle.main.url(
+            forResource: bundleName,
+            withExtension: bundleSuffix
+        )!
+    }
+    
+    static var flags: Bundle {
+        return Bundle(url: defaultBundleUrl)!
+    }
+    
+}
+
+extension UIImage {
+    
+    static func getFlag(named: String) -> UIImage? {
+        if #available(iOS 13.0, *) {
+            return UIImage(named: named, in: Bundle.flags, with: nil)
+        } else {
+            return UIImage(named: named, in: Bundle.flags, compatibleWith: nil)
+        }
     }
     
 }
