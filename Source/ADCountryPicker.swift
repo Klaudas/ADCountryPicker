@@ -27,7 +27,7 @@ public struct Section {
 
 open class ADCountryPicker: UITableViewController {
     
-    convenience init(countries: [ADCountry], currentCountry: ADCountry?) {
+    public convenience init(countries: [ADCountry], currentCountry: ADCountry?) {
         self.init(style: .grouped)
         self.countries = countries
         self.currentCountry = currentCountry
