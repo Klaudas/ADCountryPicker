@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     @IBAction func openPickerAction(_ sender: AnyObject) {
         
-        let picker = ADCountryPicker(countries: ADCountryManager().allCountries)
+        let picker = ADCountryPicker(countries: ADCountryManager().allCountries, currentCountry: ADCountryManager().currentCountry)
         // delegate
         picker.delegate = self
 
