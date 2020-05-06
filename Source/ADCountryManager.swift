@@ -41,31 +41,13 @@ public final class ADCountryManager {
     
 }
 
-extension Bundle {
-    
-    private static var bundleName: String { "assets" }
-    private static var bundleSuffix: String { "bundle" }
-    
-    private static var defaultBundleUrl: URL {
-        Bundle.main.url(
-            forResource: bundleName,
-            withExtension: bundleSuffix
-        )!
-    }
-    
-    static var flags: Bundle {
-        return Bundle(url: defaultBundleUrl)!
-    }
-    
-}
-
 extension UIImage {
     
     static func getFlag(named: String) -> UIImage? {
         if #available(iOS 13.0, *) {
-            return UIImage(named: named, in: Bundle.flags, with: nil)
+            return UIImage(named: bundle + named, in: Bundle(for: ADCountryPicker.self), with: nil)
         } else {
-            return UIImage(named: named, in: Bundle.flags, compatibleWith: nil)
+            return UIImage(named: bundle + named, in: Bundle(for: ADCountryPicker.self), compatibleWith: nil)
         }
     }
     

@@ -72,10 +72,6 @@ open class ADCountryPicker: UITableViewController {
         }
         
         // Adds current location
-        var countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String ?? self.defaultCountryCode
-        if self.forceDefaultCountryCode {
-            countryCode = self.defaultCountryCode
-        }
         
         if let currentCountry = currentCountry {
             sections.insert(Section(), at: 0)
