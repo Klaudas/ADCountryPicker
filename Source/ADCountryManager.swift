@@ -44,6 +44,8 @@ public final class ADCountryManager {
 extension UIImage {
     
     static func getFlag(named: String) -> UIImage? {
+        let bundle = "assets.bundle/"
+        
         if #available(iOS 13.0, *) {
             return UIImage(named: bundle + named, in: Bundle(for: ADCountryPicker.self), with: nil)
         } else {
