@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     @IBAction func openPickerAction(_ sender: AnyObject) {
         
-        let picker = ADCountryPicker(style: .grouped)
+        let picker = ADCountryPicker(countries: ADCountryManager().allCountries)
         // delegate
         picker.delegate = self
 
@@ -53,10 +53,6 @@ extension ViewController: ADCountryPickerDelegate {
         countryNameLabel.text = name
         countryCodeLabel.text = code
         countryCallingCodeLabel.text = dialCode
-        
-       let x =  picker.getFlag(countryCode: code)
-        let xx =  picker.getCountryName(countryCode: code)
-        let xxx =  picker.getDialCode(countryCode: code)
     }
 }
 

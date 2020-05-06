@@ -27,6 +27,11 @@ public struct Section {
 
 open class ADCountryPicker: UITableViewController {
     
+    convenience init(countries: [ADCountry]) {
+        self.init(style: .grouped)
+        self.countries = countries
+    }
+    
     deinit { print("deinit", type(of: self)) }
     
     private var customCountriesCode: [String]?
@@ -38,29 +43,30 @@ open class ADCountryPicker: UITableViewController {
     }()
     fileprivate var searchController: UISearchController!
     fileprivate var filteredList = [ADCountry]()
-    fileprivate var unsortedCountries : [ADCountry] {
-        let locale = Locale.current
-        var unsortedCountries = [ADCountry]()
-        let countriesCodes = customCountriesCode == nil ? Locale.isoRegionCodes : customCountriesCode!
-        
-        for countryCode in countriesCodes {
-            let displayName = (locale as NSLocale).displayName(forKey: NSLocale.Key.countryCode, value: countryCode)
-            let countryData = CallingCodes.filter { $0["code"] == countryCode }
-            let country: ADCountry
-            
-            if countryData.count > 0, let dialCode = countryData[0]["dial_code"] {
-                country = ADCountry(name: displayName!, code: countryCode, dialCode: dialCode)
-            } else {
-                country = ADCountry(name: displayName!, code: countryCode, dialCode: "")
-            }
-            
-            if getFlag(countryCode: countryCode) != nil {
-                unsortedCountries.append(country)
-            }
-        }
-        
-        return unsortedCountries
-    }
+    private var countries = [ADCountry]()
+//    fileprivate var unsortedCountries : [ADCountry] {
+//        let locale = Locale.current
+//        var unsortedCountries = [ADCountry]()
+//        let countriesCodes = customCountriesCode == nil ? Locale.isoRegionCodes : customCountriesCode!
+//
+//        for countryCode in countriesCodes {
+//            let displayName = (locale as NSLocale).displayName(forKey: NSLocale.Key.countryCode, value: countryCode)
+//            let countryData = CallingCodes.filter { $0["code"] == countryCode }
+//            let country: ADCountry
+//
+//            if countryData.count > 0, let dialCode = countryData[0]["dial_code"] {
+//                country = ADCountry(name: displayName!, code: countryCode, dialCode: dialCode)
+//            } else {
+//                country = ADCountry(name: displayName!, code: countryCode, dialCode: "")
+//            }
+//
+//            if getFlag(countryCode: countryCode) != nil {
+//                unsortedCountries.append(country)
+//            }
+//        }
+//
+//        return unsortedCountries
+//    }
     
     fileprivate var _sections: [Section]?
     fileprivate var sections: [Section] {
@@ -69,7 +75,7 @@ open class ADCountryPicker: UITableViewController {
             return _sections!
         }
         
-        let countries: [ADCountry] = unsortedCountries.map { country in
+        let countries: [ADCountry] = self.countries.map { country in
             let country = ADCountry(name: country.name, code: country.code, dialCode: country.dialCode)
             country.section = collation.section(for: country, collationStringSelector: #selector(getter: ADCountry.name))
             return country
