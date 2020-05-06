@@ -291,7 +291,7 @@ open class ADCountryPicker: UITableViewController {
         let countries = self.getCountry(countryCode)
         
         if countries.count == 1 {
-            return countries.first?.dialCode
+            return countries.first?.phoneCode
         }
         else {
             return nil
@@ -356,7 +356,7 @@ extension ADCountryPicker {
         cell.detailTextLabel?.textColor = phoneCodeTextColor
         
         if showCallingCodes {
-            cell.detailTextLabel?.text = country.dialCode
+            cell.detailTextLabel?.text = country.phoneCode
         } else {
             cell.detailTextLabel?.text = nil
         }
@@ -426,9 +426,9 @@ extension ADCountryPicker {
         }
         didSelectCallback?(country)
         delegate?.countryPicker?(self, didSelectCountryWithName: country.name, code: country.code)
-        delegate?.countryPicker(self, didSelectCountryWithName: country.name, code: country.code, dialCode: country.dialCode)
+        delegate?.countryPicker(self, didSelectCountryWithName: country.name, code: country.code, dialCode: country.phoneCode)
         didSelectCountryClosure?(country.name, country.code)
-        didSelectCountryWithCallingCodeClosure?(country.name, country.code, country.dialCode)
+        didSelectCountryWithCallingCodeClosure?(country.name, country.code, country.phoneCode)
     }
 }
 
