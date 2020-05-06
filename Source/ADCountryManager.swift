@@ -21,7 +21,7 @@ public final class ADCountryManager {
             guard
                 let dialCode = prefixCodes[code],
                 let name = Locale.current.localizedString(forRegionCode: code),
-                let flag = UIImage.getFlag(named: code)
+                let flag = getFlag(named: code)
             else { return nil }
             return ADCountry(name: name, code: code, dialCode: "+" + dialCode, flag: flag)
         }.sorted { $0.name < $1.name }
@@ -33,17 +33,13 @@ public final class ADCountryManager {
         guard
             let dialCode = prefixCodes[code],
             let name = Locale.current.localizedString(forRegionCode: code),
-            let flag = UIImage.getFlag(named: code)
+            let flag = getFlag(named: code)
         else { return nil }
         
         return ADCountry(name: name, code: code, dialCode: "+" + dialCode, flag: flag)
     }
     
-}
-
-extension UIImage {
-    
-    static func getFlag(named: String) -> UIImage? {
+    private func getFlag(named: String) -> UIImage? {
         let bundle = "assets.bundle/"
         
         if #available(iOS 13.0, *) {
