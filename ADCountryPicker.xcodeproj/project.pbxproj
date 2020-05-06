@@ -15,7 +15,7 @@
 		2453A6D61EADC0BA00C81AB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2453A6D41EADC0BA00C81AB1 /* LaunchScreen.storyboard */; };
 		2453A6D91EADC0D400C81AB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2453A6D71EADC0D400C81AB1 /* Main.storyboard */; };
 		245E4ED11EA9C9110067AF5F /* ADCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245E4ED01EA9C9110067AF5F /* ADCountry.swift */; };
-		DA0DBFC72463100400187FFE /* ADCountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0DBFC62463100400187FFE /* ADCountryManager.swift */; };
+		DA0DBFC9246318C100187FFE /* ADCountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0DBFC8246318C100187FFE /* ADCountryManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		2453A6D51EADC0BA00C81AB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ADCountryPicker/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		2453A6D81EADC0D400C81AB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ADCountryPicker/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		245E4ED01EA9C9110067AF5F /* ADCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ADCountry.swift; path = Source/ADCountry.swift; sourceTree = "<group>"; };
-		DA0DBFC62463100400187FFE /* ADCountryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADCountryManager.swift; sourceTree = "<group>"; };
+		DA0DBFC8246318C100187FFE /* ADCountryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ADCountryManager.swift; path = Source/ADCountryManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +78,9 @@
 			isa = PBXGroup;
 			children = (
 				05B258641C54EC67002F01FA /* ADCountryPicker.swift */,
-				DA0DBFC62463100400187FFE /* ADCountryManager.swift */,
-				05214F001C55226B00F57DA5 /* assets.bundle */,
 				245E4ED01EA9C9110067AF5F /* ADCountry.swift */,
+				DA0DBFC8246318C100187FFE /* ADCountryManager.swift */,
+				05214F001C55226B00F57DA5 /* assets.bundle */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -160,7 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA0DBFC72463100400187FFE /* ADCountryManager.swift in Sources */,
+				DA0DBFC9246318C100187FFE /* ADCountryManager.swift in Sources */,
 				2453A6C81EADC09C00C81AB1 /* AppDelegate.swift in Sources */,
 				05B258651C54EC67002F01FA /* ADCountryPicker.swift in Sources */,
 				2453A6CA1EADC09C00C81AB1 /* ViewController.swift in Sources */,
