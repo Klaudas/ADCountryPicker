@@ -24,8 +24,12 @@ public final class ADCountryManager {
                 let flag = getFlag(named: code)
             else { return nil }
             return ADCountry(name: name, code: code, dialCode: "+" + dialCode, flag: flag)
-        }.sorted { $0.name < $1.name }
+        }
         
+    }()
+    
+    public lazy var allCountriesSorted: [ADCountry] = {
+        allCountries.sorted { $0.name < $1.name }
     }()
     
     public var currentCountry: ADCountry? {
@@ -70,6 +74,6 @@ extension ADCountryManager {
 
     public func getCountry(forPrefix prefix: String) -> ADCountry? {
         let prefix = prefix.replacingOccurrences(of: "+", with: "")
-        return allCountries.first { $0.phoneCode == prefix }
+        return allCountries.first { $0.phoneCode.contains(prefix) }
     }
 }
