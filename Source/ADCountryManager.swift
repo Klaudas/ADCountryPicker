@@ -37,7 +37,7 @@ public final class ADCountryManager {
         else { return nil }
         
         return ADCountry(name: name, code: code, dialCode: "+" + dialCode, flag: flag)
-    }
+    } 
     
     private func getFlag(named: String) -> UIImage? {
         let bundle = "assets.bundle/"
@@ -49,4 +49,27 @@ public final class ADCountryManager {
         }
     }
     
+}
+
+// MARK: - Get
+extension ADCountryManager {
+
+    public func getCountry(forPhone phone: String) -> ADCountry? {
+        let phone = phone.replacingOccurrences(of: "+", with: "")
+        
+        if let regionCode = Locale.current.regionCode {
+            let phoneCode = prefixCodes[regionCode] ?? ""
+            if phone.prefix(phoneCode.count) == phoneCode {
+                return allCountries.first { $0.code == regionCode }
+            }
+        }
+        
+        let prefix = prefixCodes.first { $0.value == phone.prefix($0.value.count) }?.value
+        return getCountry(forPrefix: prefix ?? "")
+    }
+
+    public func getCountry(forPrefix prefix: String) -> ADCountry? {
+        let prefix = prefix.replacingOccurrences(of: "+", with: "")
+        return allCountries.first { $0.phoneCode == prefix }
+    }
 }
